@@ -1,0 +1,42 @@
+.ready-text,
+ #custom-form,
+ .alert-danger,
+ #copy-form {
+     display: none;
+ }
+
+#show-custom-form,
+#show-randomly-form,
+#reload-page-button,
+#reload-page-button {
+    border: none;
+    background-color: transparent;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+#show-custom-form,
+#show-randomly-form,
+#reload-page-button {
+    @include monts_600;
+    color: $c_light-blue;
+    transition: color .3s ease;
+
+    &:hover {
+        color: $c_dark-blue;
+        text-decoration: underline;
+    }
+}
+
+#show-randomly-form {
+    display: none;
+}
+
+.wrapper-button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}

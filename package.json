@@ -1,0 +1,46 @@
+{
+    "name": "UrlShortener",
+    "version": "1.0.0",
+    "description": "UrlShortener application",
+    "scripts": {
+        "server": "babel-node server/app.js",
+        "webpack-devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 3001 --host 0.0.0.0"
+    },
+    "author": "Alexander",
+    "dependencies": {
+        "axios": "^0.9.1",
+        "body-parser": "^1.12.3",
+        "classnames": "^2.2.3",
+        "cors": "*",
+        "events": "^1.1.0",
+        "express": "*",
+        "flux": "^2.1.1",
+        "jquery": "*",
+        "keymirror": "^0.1.1",
+        "mongoose": "*",
+        "react": "^0.14.6",
+        "react-dom": "^0.14.6",
+        "react-masonry-component": "^4.0.0",
+        "react-bootstrap": "^1.0.0-beta.12",
+        "sass": "^1.22.10"
+    },
+    "devDependencies": {
+        "autoprefixer-loader": "*",
+        "@babel/core": "^7.0.0",
+        "@babel/preset-env": "^7.0.0",
+        "@babel/preset-react": "^7.0.0",
+        "babel-loader": "^8.0.6",
+        "react-hot-loader": "^1.3.0",
+        "css-loader": "^3.2.0",
+        "file-loader": "^0.8.5",
+        "json-loader": "^0.5.7",
+        "style-loader": "^1.0.0",
+        "sass-loader": "^8.0.0",
+        "url-loader": "^0.5.6",
+        "webpack": "^4.39.3",
+        "webpack-cli": "^3.3.7",
+        "webpack-dev-server": "^3.8.0",
+        "bootstrap": "^4.3.1",
+        "html-webpack-plugin": "^3.2.0"
+    }
+}
