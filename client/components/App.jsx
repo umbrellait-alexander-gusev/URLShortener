@@ -9,7 +9,7 @@ import LinksActions from '../actions/LinksActions';
 import Forms from './Forms.jsx';
 
 import 'bootstrap/scss/bootstrap.scss';
-import '../views/sass/main.scss';
+import '../style/sass/main.scss';
 
 function getStateFromFlux() {
     return {

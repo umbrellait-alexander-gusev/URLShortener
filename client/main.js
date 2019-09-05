@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter} from 'react-router-dom';
 
-import App from './components/App.jsx';
+import AppRouter from './components/Router.jsx';
 
 ReactDOM.render(
-    <App />,
+        <AppRouter />,
     document.getElementById('content')
 );

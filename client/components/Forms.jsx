@@ -26,7 +26,9 @@ const RandomlyForm = React.createClass({
     },
 
     handleRandomlyChange(event) {
-        this.setState({URLOrigin: event.target.value});
+        if(event.target.value.match("^[a-zA-Z0-9_]*$") !== null){
+            this.setState({URLOrigin: event.target.value});
+        }
 
         const hostName = document.domain;
         const shortUrl = hostName + '/' + randomStringFun(5);
@@ -35,7 +37,9 @@ const RandomlyForm = React.createClass({
     },
 
     handleCustomChange(event) {
-        this.setState({URLShortCustom: event.target.value});
+        if(event.target.value.match("^[a-zA-Z0-9_]*$") !== null && event.target.value.length < 6){
+            this.setState({URLShortCustom: event.target.value});
+        }
 
         const hostName = document.domain;
         const shortUrl = hostName + '/' + event.target.value.slice(0, 5);
@@ -102,6 +106,8 @@ const RandomlyForm = React.createClass({
         this.props.links.map(link => {
                 linkArray.push(link.URLShort);
 
+                console.log(link.URLShort);
+
                 let secondDateItem = Date.parse(link.createdAt) / 1000;
                 let secondDateNow = Date.parse(new Date()) / 1000;
                 let sec = secondDateNow - secondDateItem;
@@ -146,9 +152,7 @@ const RandomlyForm = React.createClass({
                 <div id='custom-form'>
                     <h3>Custom url</h3>
 
-                    <p className="mb-0">Enter your text that will follow the domain.</p>
-                    <p>No more than <i className="font-italic">five characters</i>.
-                        The address of five will be cut off.</p>
+                    <p className="mb-0">The maximum length is 5 characters.</p>
 
                     <div className="input-group mb-3">
                         <input
