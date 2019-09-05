@@ -2,7 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-import { serverPort } from '../etc/config.json';
+// import { serverPort } from '../etc/config.json';
+
+const serverPort = '18.222.26.151';
 
 import * as db from './utils/DataBaseUtils';
 
