@@ -106,6 +106,10 @@ const RandomlyForm = React.createClass({
         this.props.links.map(link => {
                 linkArray.push(link.URLShort);
 
+                console.log(link.URLShort);
+                console.log(link.URLOrigin);
+                console.log('------');
+
                 let secondDateItem = Date.parse(link.createdAt) / 1000;
                 let secondDateNow = Date.parse(new Date()) / 1000;
                 let sec = secondDateNow - secondDateItem;
