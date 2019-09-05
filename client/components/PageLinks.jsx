@@ -1,7 +1,7 @@
 import React from "react";
 
-const hostName = document.domain;
-// const hostName = 'http://localhost:3001';
+// const hostName = document.domain;
+const hostName = 'http://localhost:3001';
 
 let linkCodeNow = document.URL;
 linkCodeNow = linkCodeNow.replace(hostName + '/', '');
@@ -23,7 +23,10 @@ const OtherLinks = React.createClass({
         );
 
         return (
-            <stub/>
+            <div>
+                <p>hostName : {hostName}</p>
+                <p>linkCodeNow : {linkCodeNow}</p>
+            </div>
         );
     }
 });
