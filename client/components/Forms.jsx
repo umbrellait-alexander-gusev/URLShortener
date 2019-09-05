@@ -26,11 +26,10 @@ const RandomlyForm = React.createClass({
     },
 
     handleRandomlyChange(event) {
-        if(event.target.value.match("^[a-zA-Z0-9_]*$") !== null){
-            this.setState({URLOrigin: event.target.value});
-        }
+        this.setState({URLOrigin: event.target.value});
 
         const hostName = document.domain;
+        // const hostName = 'http://localhost:3001';
         const shortUrl = hostName + '/' + randomStringFun(5);
 
         if (this.state.URLShortCustom.length === 0) this.setState({URLShort: shortUrl});
@@ -42,6 +41,7 @@ const RandomlyForm = React.createClass({
         }
 
         const hostName = document.domain;
+        // const hostName = 'http://localhost:3001';
         const shortUrl = hostName + '/' + event.target.value.slice(0, 5);
 
         if (linkArray.indexOf(shortUrl) === -1) {
