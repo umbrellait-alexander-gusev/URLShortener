@@ -1,7 +1,7 @@
 import React from "react";
 
-// const hostName = document.domain;
-const hostName = 'http://localhost:3001';
+const hostName = document.domain;
+// const hostName = 'http://localhost:3001';
 
 let linkCodeNow = document.URL;
 linkCodeNow = linkCodeNow.replace(hostName + '/', '');
