@@ -1,22 +1,22 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
+import Express from 'express';
+import Cors from 'cors';
+import BodyParser from 'body-parser';
 
-import { serverPort } from '../etc/config.json';
+import { ServerPort } from '../etc/config.json';
 
 import * as db from './utils/DataBaseUtils';
 
 // Initialization of express application
-const app = express();
+const app = Express();
 
 // Set up connection of database
 db.setUpConnection();
 
-// Using bodyParser middleware
-app.use( bodyParser.json() );
+// Using BodyParser middleware
+app.use( BodyParser.json() );
 
 // Allow requests from any origin
-app.use(cors({ origin: '*' }));
+app.use(Cors({ origin: '*' }));
 
 // RESTful api handlers
 app.get('/links', (req, res) => {
@@ -31,6 +31,6 @@ app.delete('/links/:id', (req, res) => {
     db.deleteLink(req.params.id).then(data => res.send(data));
 });
 
-const server = app.listen(serverPort, function() {
-    console.log(`Server is up and running on port ${serverPort}`);
+const server = app.listen(ServerPort, function() {
+    console.log(`Server is up and running on port ${ServerPort}`);
 });
