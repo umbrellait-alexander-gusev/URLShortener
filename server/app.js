@@ -1,10 +1,10 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
 
-const serverPort = require('../etc/config.json');
+import { serverPort } from '../etc/config.json';
 
-const db = require('./utils/DataBaseUtils');
+import * as db from './utils/DataBaseUtils';
 
 // Initialization of express application
 const app = express();

@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
-const config = require('../../etc/config.json');
-require('../models/Link');
+import mongoose from "mongoose";
+
+import config from '../../etc/config.json';
+
+import '../models/Link';
 
 const Link = mongoose.model('Link');
 
