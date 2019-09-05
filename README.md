@@ -20,14 +20,6 @@ path: client/components/PageLinks.jsx
 
 path: client/api/index.js
 
-- To comment line: 3, 8, 13, 18
-- Uncomment line: 4, 9, 14, 19
-
-path: server/utils/DataBaseUtils.js
-
-- To comment line: 6, 9
-- Uncomment line: 10
-
 # Start application
 ```
 npm i
