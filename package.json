@@ -19,9 +19,10 @@
         "keymirror": "^0.1.1",
         "mongoose": "*",
         "react": "^0.14.6",
+        "react-bootstrap": "^1.0.0-beta.12",
         "react-dom": "^0.14.6",
         "react-masonry-component": "^4.0.0",
-        "react-bootstrap": "^1.0.0-beta.12",
+        "react-router-dom": "^5.0.1",
         "sass": "^1.22.10"
     },
     "devDependencies": {
