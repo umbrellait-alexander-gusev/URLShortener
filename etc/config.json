@@ -1,10 +1,9 @@
 {
-//    "apiPrefix": "http://localhost:3000",
-    "apiPrefix": "http://18.222.26.151",
-//    "serverPort": "3000",
+    "apiPrefix": "http://18.222.26.151:3000",
+    "serverPort": "3000",
     "db":{
         "name": "links",
-        "host": "localhost",
+        "host": "18.222.26.151",
         "port": 27017
     }
 }

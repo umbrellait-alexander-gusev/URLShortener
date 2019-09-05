@@ -7,8 +7,7 @@ import '../models/Link';
 const Link = mongoose.model('Link');
 
 export function setUpConnection() {
-    // mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`);
-    mongoose.connect(`mongodb://18.222.26.151/${config.db.name}`);
+    mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`);
 }
 
 export function listLinks(id) {
