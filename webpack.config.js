@@ -70,10 +70,5 @@ module.exports = {
     ],
     performance: {
         hints: false
-    },
-    devServer: {
-        compress: true,
-        public: 'ec2-18-222-26-151.us-east-2.compute.amazonaws.com'
-
     }
 };
