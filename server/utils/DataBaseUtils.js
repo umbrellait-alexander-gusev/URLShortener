@@ -6,6 +6,10 @@ import '../models/Link';
 
 const Link = mongoose.model('Link');
 
+mongoose.connection.on('error', err => {
+    logError(err);
+});
+
 export function setUpConnection() {
     mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`).catch(err=>console.log(err));
 }
