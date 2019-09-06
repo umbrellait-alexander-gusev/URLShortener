@@ -10,7 +10,6 @@ export function setUpConnection() {
     mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`).catch(err=>console.log(err));
 }
 
-
 export function listLinks(id) {
     return Link.find();
 }
