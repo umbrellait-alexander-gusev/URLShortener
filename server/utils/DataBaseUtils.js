@@ -7,8 +7,9 @@ import '../models/Link';
 const Link = mongoose.model('Link');
 
 export function setUpConnection() {
-    mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`);
+    mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`).catch(err=>console.log(err));
 }
+
 
 export function listLinks(id) {
     return Link.find();
@@ -27,4 +28,3 @@ export function createLink(data) {
 export function deleteLink(id) {
     return Link.findById(id).remove();
 }
-
