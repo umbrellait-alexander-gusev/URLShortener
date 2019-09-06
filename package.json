@@ -4,7 +4,7 @@
     "description": "UrlShortener application",
     "scripts": {
         "server": "babel-node server/app.js",
-        "webpack-devserver": "webpack-dev-server --debug --hot --history-api-fallback --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8080 --host 18.222.26.151"
+        "webpack-devserver": "webpack-dev-server --debug --hot --history-api-fallback --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 80 --host 18.222.26.151"
     },
     "author": "Alexander",
     "dependencies": {
