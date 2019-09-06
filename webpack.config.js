@@ -72,10 +72,6 @@ module.exports = {
         hints: false
     },
     devServer: {
-        stats: {
-            children: false,
-            modules: false
-        },
         disableHostCheck: true,
     },
 };
