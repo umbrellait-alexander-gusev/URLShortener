@@ -14,7 +14,7 @@ const OtherLinks = React.createClass({
     render() {
         this.props.links.map(link => {
                 let linkCode = link.URLShort;
-                linkCode = linkCode.replace(hostName + '/', '');
+                // linkCode = linkCode.replace(hostName + '/', '');
 
                 console.log(linkCode);
                 console.log(linkCodeNow);
