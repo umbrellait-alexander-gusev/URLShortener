@@ -1,6 +1,6 @@
 import React from "react";
 
-let hostName = document.domain + ':8080';
+let hostName = document.domain;
 // const hostName = 'http://localhost:3001';
 
 let linkCodeNow = document.URL;
