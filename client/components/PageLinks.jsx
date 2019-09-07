@@ -4,7 +4,7 @@ let hostName = document.domain + ':8080';
 // const hostName = 'http://localhost:3001';
 
 let linkCodeNow = document.URL;
-linkCodeNow = linkCodeNow.replace(hostName + '/', '');
+// linkCodeNow = linkCodeNow.replace(hostName + '/', '');
 
 const OtherLinks = React.createClass({
     locationRun (url) {
