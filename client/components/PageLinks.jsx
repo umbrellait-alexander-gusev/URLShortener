@@ -1,6 +1,6 @@
 import React from "react";
 
-const hostName = document.domain;
+let hostName = document.domain + ':8080';
 // const hostName = 'http://localhost:3001';
 
 let linkCodeNow = document.URL;
@@ -14,7 +14,7 @@ const OtherLinks = React.createClass({
     render() {
         this.props.links.map(link => {
                 let linkCode = link.URLShort;
-                linkCode = linkCode.replace(hostName + '/', '');
+                // linkCode = linkCode.replace(hostName + '/', '');
 
                 if (linkCode === linkCodeNow) {
                     this.locationRun(link.URLOrigin);
