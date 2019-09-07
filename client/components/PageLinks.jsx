@@ -16,10 +16,21 @@ const OtherLinks = React.createClass({
                 let linkCode = link.URLShort;
                 linkCode = linkCode.replace(hostName + '/', '');
 
+                console.log(linkCode);
+                console.log(linkCodeNow);
+                console.log(linkCode === linkCodeNow);
+                console.log('---------');
+
                 if (linkCode === linkCodeNow) {
                     this.locationRun(link.URLOrigin);
                 }
             }
+        );
+
+        return (
+            <div>
+                <p>linkCodeNow : {linkCodeNow}</p>
+            </div>
         );
     }
 });
