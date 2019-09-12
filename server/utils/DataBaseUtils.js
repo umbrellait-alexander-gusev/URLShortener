@@ -1,17 +1,15 @@
 import mongoose from "mongoose";
 import '../models/Link';
+import env from '../config/config'
 
-const dotenv = require("dotenv");
-const path = require("path");
-
-dotenv.config({
-    path: path.resolve("./.env")
-});
+const DbHost = env.db_host;
+const DbPort = env.db_port;
+const DbName = env.db_name;
 
 const Link = mongoose.model('Link');
 
 export function setUpConnection() {
-    mongoose.connect(`mongodb://${process.env.REACT_APP_DB_HOST}:${process.env.REACT_APP_DB_PORT}/${process.env.REACT_APP_DB_NAME}`, {
+    mongoose.connect(`mongodb://${DbHost}:${DbPort}/${DbName}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }).catch(err => console.error(err));

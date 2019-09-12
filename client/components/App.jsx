@@ -24,18 +24,6 @@ const App = CreateReactClass({
         return getStateFromFlux();
     },
 
-    componentWillMount() {
-        LinksActions.loadLinks();
-    },
-
-    componentDidMount() {
-        LinksStore.addChangeListener(this._onChange);
-    },
-
-    componentWillUnmount() {
-        LinksStore.removeChangeListener(this._onChange);
-    },
-
     handleLinkDelete(link) {
         LinksActions.deleteLink(link.id);
     },

@@ -1,10 +1,11 @@
 import React from 'react';
 import CreateReactClass from 'create-react-class';
-import {CSSTransition} from "react-transition-group";
+import {CSSTransition} from 'react-transition-group';
+import env from '../config/config'
 
 const linkArray = [];
 
-const hostName = process.env.REACT_APP_CLIENT_API_PREFIX;
+const hostName = env.client_api_prefix;
 
 function randomStringFun(count) {
     if (count > 1 && typeof count === 'number') {
@@ -84,7 +85,9 @@ const RandomlyForm = CreateReactClass({
                 URLOrigin: '',
                 animateFormCopy: true,
                 animateFormRandomly: false,
-                animateFormCustom: false
+                animateFormCustom: false,
+                animateButtonShow: false,
+                animateButtonHide: false
             });
 
         } else {
@@ -128,19 +131,7 @@ const RandomlyForm = CreateReactClass({
 
     render() {
         this.props.links.map(link => {
-            console.log(link.URLShort);
-
                 linkArray.push(link.URLShort);
-
-                let secondDateItem = Date.parse(link.createdAt) / 1000;
-                let secondDateNow = Date.parse(new Date()) / 1000;
-                let sec = secondDateNow - secondDateItem;
-                let min = sec / 60;
-                let hour = min / 60;
-                let day = hour / 24;
-                let dayNow = day.toFixed(0);
-
-                if (dayNow > 1) this.props.onLinkDelete(link);
             }
         );
 

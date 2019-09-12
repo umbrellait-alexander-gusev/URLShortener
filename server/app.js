@@ -3,13 +3,9 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import * as db from './utils/DataBaseUtils';
 import './tasks/TaskAutoRemoveLink';
+import env from './config/config'
 
-const dotenv = require("dotenv");
-const path = require("path");
-
-dotenv.config({
-    path: path.resolve("./.env")
-});
+const ServerPort = env.server_port;
 
 // Initialization of express application
 const app = express();
@@ -36,6 +32,6 @@ app.delete('/links/:id', (req, res) => {
     db.deleteLink(req.params.id).then(data => res.send(data));
 });
 
-const server = app.listen(process.env.REACT_APP_SERVER_PORT, function() {
-    console.log(`Server is up and running on port ${process.env.REACT_APP_SERVER_PORT}`);
+const server = app.listen(ServerPort, function() {
+    console.log(`Server is up and running on port ${ServerPort}`);
 });

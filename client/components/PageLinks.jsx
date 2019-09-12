@@ -1,8 +1,8 @@
 import React from "react";
 import CreateReactClass from 'create-react-class';
+import env from '../config/config'
 
-const hostName = process.env.REACT_APP_CLIENT_API_PREFIX;
-console.log(hostName);
+const hostName = env.client_api_prefix;
 
 let linkCodeNow = document.URL;
 let RelinkCodeNow = linkCodeNow.replace(hostName + '/', '');
