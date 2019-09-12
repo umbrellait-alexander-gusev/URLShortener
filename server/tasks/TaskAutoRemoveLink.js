@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-import * as db from './DataBaseUtils';
+import * as db from '../utils/DataBaseUtils';
 
 const TaskAutoRemoveLink = cron.schedule('* * */1 * *', () => {
     db.listLinks().then(data => data.map(link => {
