@@ -7,19 +7,6 @@
 - Webpack
 - MongoDB
 
-# To work properly on localhost edit code
-path: client/components/Forms.js
-
-- To comment line: 31 and 43
-- Uncomment line: 32 and 44
-
-path: client/components/PageLinks.jsx
-
-- To comment line: 3
-- Uncomment line: 4
-
-path: client/api/index.js
-
 # Start application
 ```
 npm i
