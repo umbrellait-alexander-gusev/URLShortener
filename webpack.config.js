@@ -66,7 +66,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './client/index.html',
             inject: "body"
-        })
+        }),
     ],
     performance: {
         hints: false
@@ -74,5 +74,8 @@ module.exports = {
     devServer: {
         compress: true,
         disableHostCheck: true,
+    },
+    node: {
+        fs: 'empty'
     }
 };

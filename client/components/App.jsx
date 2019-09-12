@@ -1,4 +1,5 @@
 import React from 'react';
+import CreateReactClass from 'create-react-class';
 import Header from '../layout/Header.js';
 import Footer from '../layout/Footer.js';
 import TextInfo from '../layout/TextInfo.js';
@@ -18,7 +19,7 @@ function getStateFromFlux() {
     };
 }
 
-const App = React.createClass({
+const App = CreateReactClass({
     getInitialState() {
         return getStateFromFlux();
     },

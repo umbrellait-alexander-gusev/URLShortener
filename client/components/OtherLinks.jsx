@@ -1,4 +1,5 @@
 import React from 'react';
+import CreateReactClass from 'create-react-class';
 
 import LinksStore from '../stores/LinksStore';
 import LinksActions from '../actions/LinksActions';
@@ -12,7 +13,7 @@ function getStateFromFlux() {
     };
 }
 
-const OtherLinks = React.createClass({
+const OtherLinks = CreateReactClass({
     getInitialState() {
         return getStateFromFlux();
     },

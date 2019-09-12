@@ -1,12 +1,13 @@
 import React from "react";
+import CreateReactClass from 'create-react-class';
 
-let hostName = document.domain;
-// const hostName = 'http://localhost:3001';
+// let hostName = document.domain;
+const hostName = 'localhost:3001';
 
 let linkCodeNow = document.URL;
 linkCodeNow = linkCodeNow.replace('http://' + hostName + '/', '');
 
-const OtherLinks = React.createClass({
+const OtherLinks = CreateReactClass({
     locationRun (url) {
         window.location.assign(url);
     },
@@ -15,11 +16,6 @@ const OtherLinks = React.createClass({
         this.props.links.map(link => {
                 let linkCode = link.URLShort;
                 linkCode = linkCode.replace(hostName + '/', '');
-
-                console.log(linkCode);
-                console.log(linkCodeNow);
-                console.log(linkCode === linkCodeNow);
-                console.log('---------');
 
                 if (linkCode === linkCodeNow) {
                     this.locationRun(link.URLOrigin);
