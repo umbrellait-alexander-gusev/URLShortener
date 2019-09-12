@@ -2,9 +2,10 @@ import React from "react";
 import CreateReactClass from 'create-react-class';
 
 const hostName = process.env.REACT_APP_CLIENT_API_PREFIX;
+console.log(hostName);
 
 let linkCodeNow = document.URL;
-linkCodeNow = linkCodeNow.replace('http://' + hostName + '/', '');
+let RelinkCodeNow = linkCodeNow.replace(hostName + '/', '');
 
 const OtherLinks = CreateReactClass({
     locationRun (url) {
@@ -14,9 +15,9 @@ const OtherLinks = CreateReactClass({
     render() {
         this.props.links.map(link => {
                 let linkCode = link.URLShort;
-                linkCode = linkCode.replace(hostName + '/', '');
+                let RelinkCode = linkCode.replace(hostName + '/', '');
 
-                if (linkCode === linkCodeNow) {
+                if (RelinkCode === RelinkCodeNow) {
                     this.locationRun(link.URLOrigin);
                 }
             }
