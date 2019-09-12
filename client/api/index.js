@@ -1,17 +1,15 @@
 import axios from 'axios';
 
-import { apiPrefix } from '../../etc/config.json';
-
 export default {
     listLinks() {
-        return axios.get(`${apiPrefix}/links`);
+        return axios.get(`${process.env.REACT_APP_SERVER_API_PREFIX}/${process.env.REACT_APP_DB_NAME}`);
     },
 
     createLink(data) {
-        return axios.post(`${apiPrefix}/links`, data);
+        return axios.post(`${process.env.REACT_APP_SERVER_API_PREFIX}/${process.env.REACT_APP_DB_NAME}`, data);
     },
 
     deleteLink(linkId) {
-        return axios.delete(`${apiPrefix}/links/${linkId}`);
+        return axios.delete(`${process.env.REACT_APP_SERVER_API_PREFIX}/${process.env.REACT_APP_DB_NAME}/${linkId}`);
     }
 }

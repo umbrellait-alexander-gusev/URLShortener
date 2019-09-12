@@ -1,8 +1,7 @@
 import React from "react";
 import CreateReactClass from 'create-react-class';
 
-// let hostName = document.domain;
-const hostName = 'localhost:3001';
+const hostName = process.env.REACT_APP_CLIENT_API_PREFIX;
 
 let linkCodeNow = document.URL;
 linkCodeNow = linkCodeNow.replace('http://' + hostName + '/', '');

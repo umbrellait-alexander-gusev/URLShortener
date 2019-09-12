@@ -2,10 +2,7 @@ import React from 'react';
 import CreateReactClass from 'create-react-class';
 import {CSSTransition} from "react-transition-group";
 
-const linkArray = [];
-
-// const hostName = document.domain;
-const hostName = 'http://localhost:3001';
+const hostName = process.env.REACT_APP_CLIENT_API_PREFIX;
 
 function randomStringFun(count) {
     if (count > 1 && typeof count === 'number') {
@@ -128,21 +125,6 @@ const RandomlyForm = CreateReactClass({
     },
 
     render() {
-        this.props.links.map(link => {
-                linkArray.push(link.URLShort);
-
-                let secondDateItem = Date.parse(link.createdAt) / 1000;
-                let secondDateNow = Date.parse(new Date()) / 1000;
-                let sec = secondDateNow - secondDateItem;
-                let min = sec / 60;
-                let hour = min / 60;
-                let day = hour / 24;
-                let dayNow = day.toFixed(0);
-
-                if (dayNow > 1) this.props.onLinkDelete(link);
-            }
-        );
-
         return (
             <div className="form-wrapper">
 

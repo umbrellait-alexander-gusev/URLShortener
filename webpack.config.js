@@ -1,5 +1,13 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const DotenvWebpack = require('dotenv-webpack');
+
+const dotenv = require("dotenv");
+const path = require("path");
+
+dotenv.config({
+    path: path.resolve("./.env")
+});
 
 module.exports = {
     entry: "./client/main.js",
@@ -67,6 +75,7 @@ module.exports = {
             template: './client/index.html',
             inject: "body"
         }),
+        new DotenvWebpack()
     ],
     performance: {
         hints: false

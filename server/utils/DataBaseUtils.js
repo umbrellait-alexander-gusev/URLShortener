@@ -1,13 +1,20 @@
 import mongoose from "mongoose";
-
-import config from '../../etc/config.json';
-
 import '../models/Link';
+
+const dotenv = require("dotenv");
+const path = require("path");
+
+dotenv.config({
+    path: path.resolve("./.env")
+});
 
 const Link = mongoose.model('Link');
 
 export function setUpConnection() {
-    mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`).catch(err=>console.error(err));
+    mongoose.connect(`mongodb://${process.env.REACT_APP_DB_HOST}:${process.env.REACT_APP_DB_PORT}/${process.env.REACT_APP_DB_NAME}`, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }).catch(err => console.error(err));
 }
 
 export function listLinks(id) {
@@ -25,5 +32,5 @@ export function createLink(data) {
 }
 
 export function deleteLink(id) {
-    return Link.findById(id).remove();
+    return Link.findById(id).deleteOne();
 }
