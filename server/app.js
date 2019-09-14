@@ -3,7 +3,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import * as db from './utils/DataBaseUtils';
 import './tasks/TaskAutoRemoveLink';
-import env from './config/config'
+import env from './config/config';
+import logger from './utils/logger';
 
 const ServerPort = env.server_port;
 
@@ -25,7 +26,13 @@ app.get('/links', (req, res) => {
 });
 
 app.post('/links', (req, res) => {
-    db.createLink(req.body).then(data => res.send(data));
+    db.createLink(req.body).then(data => {
+        logger.info(`Create element id: ${data._id}`);
+        logger.info(`Save origin url: ${data.URLOrigin}`);
+        logger.info(`Create short url: ${data.URLShort}`);
+
+        return res.send(data);
+    });
 });
 
 app.delete('/links/:id', (req, res) => {
