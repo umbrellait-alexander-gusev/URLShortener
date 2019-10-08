@@ -1,8 +1,6 @@
+import './config/validate-env';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppRouter from './components/Router.jsx';
+import { AppRouter } from './components/AppRouter.jsx';
 
-ReactDOM.render(
-        <AppRouter />,
-    document.getElementById('content')
-);
+ReactDOM.render(<AppRouter />, document.getElementById('content'));

@@ -1,0 +1,25 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,600,600i,700,700i&display=swap);
+
+$M: 'Montserrat';
+
+@mixin font-family($font:$M, $weight:400) {
+    font-family: $font, sans-serif;
+    font-weight: $weight;
+    font-style: normal;
+}
+
+@mixin monts_400 {
+    @include font-family ($M, 400);
+}
+
+@mixin monts_500 {
+    @include font-family ($M, 500);
+}
+
+@mixin monts_600 {
+    @include font-family ($M, 600);
+}
+
+@mixin monts_700 {
+    @include font-family ($M, 700);
+}

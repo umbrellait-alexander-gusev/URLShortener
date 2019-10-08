@@ -1,15 +1,18 @@
+import './config/validate-env';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import * as db from './utils/DataBaseUtils';
-import './tasks/TaskAutoRemoveLink';
-import env from './config/config';
+import './tasks/taskAutoRemoveLink';
 import logger from './utils/logger';
+import nanoid from 'nanoid';
+import { env } from './config/config';
 
-const ServerPort = env.server_port;
+const apiPrefix = env.api_prefix;
 
 // Initialization of express application
 const app = express();
+const serverPort = env.server_port;
 
 // Set up connection of database
 db.setUpConnection();
@@ -26,19 +29,22 @@ app.get('/links', (req, res) => {
 });
 
 app.post('/links', (req, res) => {
-    db.createLink(req.body).then(data => {
-        logger.info(`Create element id: ${data._id}`);
-        logger.info(`Save origin url: ${data.URLOrigin}`);
-        logger.info(`Create short url: ${data.URLShort}`);
+  if (req.body.shortCustomUrl === '') {
+    req.body.shortUrl = apiPrefix + '/' + req.body.shortUrl + nanoid(5);
+  } else {
+    req.body.shortUrl = apiPrefix + '/' + req.body.shortCustomUrl;
+  }
 
-        return res.send(data);
-    });
+  db.createLink(req.body).then(data => {
+    logger.info(`===== new element =====`);
+    logger.info(`Create element id: ${data._id}`);
+    logger.info(`Save origin url: ${data.originUrl}`);
+    logger.info(`Create short url: ${data.shortUrl}`);
+
+    return res.send(data);
+  });
 });
 
-app.delete('/links/:id', (req, res) => {
-    db.deleteLink(req.params.id).then(data => res.send(data));
-});
-
-const server = app.listen(ServerPort, function() {
-    console.log(`Server is up and running on port ${ServerPort}`);
+const server = app.listen(serverPort, function() {
+    console.log(`Server running on port ${serverPort}`);
 });
