@@ -1,34 +1,33 @@
-import React from "react";
-import CreateReactClass from 'create-react-class';
-import env from '../config/config'
+import React from 'react';
+import { env } from '../config/config';
+import { listLinks } from '../api/index';
 
-const hostName = env.client_api_prefix;
+const apiPrefix = env.api_prefix;
 
-let linkCodeNow = document.URL;
-let RelinkCodeNow = linkCodeNow.replace(hostName + '/', '');
+let linkCodeNow = location.host + location.pathname;
+let relinkCodeNow = linkCodeNow.replace(apiPrefix + '/', '');
 
-const OtherLinks = CreateReactClass({
-    locationRun (url) {
-        window.location.assign(url);
-    },
+export class PageLinks extends React.Component {
+  locationRun(url) {
+    window.location.assign(url);
+  }
 
-    render() {
-        this.props.links.map(link => {
-                let linkCode = link.URLShort;
-                let RelinkCode = linkCode.replace(hostName + '/', '');
+  render() {
+    listLinks().then(({ data }) => {
+      data.map((link) => {
+        let linkCode = link.shortUrl;
+        let relinkCode = linkCode.replace(apiPrefix + '/', '');
 
-                if (RelinkCode === RelinkCodeNow) {
-                    this.locationRun(link.URLOrigin);
-                }
-            }
-        );
+        if (relinkCodeNow === relinkCode) {
+          this.locationRun(link.originUrl);
+        }
+      });
+    });
 
-        return (
-            <div>
-                <p>linkCodeNow : {linkCodeNow}</p>
-            </div>
-        );
-    }
-});
-
-export default OtherLinks;
+    return (
+      <div>
+        <p>linkCodeNow : {linkCodeNow}</p>
+      </div>
+    );
+  }
+}

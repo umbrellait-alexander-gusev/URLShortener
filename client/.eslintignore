@@ -1,0 +1,6 @@
+*.*
+!*.js
+!*.jsx
+
+/build
+/node_modules

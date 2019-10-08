@@ -1,0 +1,39 @@
+* {
+    @include monts_400;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body,
+#content {
+    height: 100%;
+}
+
+#wrapper-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+main {
+    flex: 1 0 auto;
+
+    .wrapper {
+        max-width: 600px;
+    }
+}
+
+footer {
+    flex: 0 0 auto;
+}
+
+.wrapper-footer {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+body > iframe {
+    display: none;
+}

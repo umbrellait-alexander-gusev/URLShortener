@@ -1,15 +1,16 @@
 import axios from 'axios';
+import { env } from '../config/config';
 
-export default {
-    listLinks() {
-        return axios.get(`${process.env.REACT_APP_SERVER_API_PREFIX}/${process.env.REACT_APP_DB_NAME}`);
-    },
+const hostName = env.api_host;
+const portName = env.api_port;
+const dbName = env.api_links_path;
 
-    createLink(data) {
-        return axios.post(`${process.env.REACT_APP_SERVER_API_PREFIX}/${process.env.REACT_APP_DB_NAME}`, data);
-    },
-
-    deleteLink(linkId) {
-        return axios.delete(`${process.env.REACT_APP_SERVER_API_PREFIX}/${process.env.REACT_APP_DB_NAME}/${linkId}`);
-    }
+function listLinks() {
+  return axios.get(`http://${hostName}:${portName}/${dbName}`);
 }
+
+function createLink(data) {
+  return axios.post(`http://${hostName}:${portName}/${dbName}`, data);
+}
+
+export { listLinks, createLink };

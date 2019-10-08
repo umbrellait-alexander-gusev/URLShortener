@@ -1,0 +1,8 @@
+*.*
+!*.js
+!*.jsx
+!*.scss
+!*.json
+
+/build
+/node_modules
