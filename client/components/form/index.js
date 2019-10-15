@@ -8,21 +8,20 @@ const mapStateToProps = (state) => {
   return {
     checkIsLoading: state.check.isLoading,
     checkError: state.check.error,
-    checkDuplicate: state.check.duplicate,
     createIsLoading: state.create.isLoading,
     createError: state.create.error,
-    getShortUrl: state.create.shortUrl,
+    getSlug: state.create.slug,
   };
 };
 
 const mapActionToProps = (dispatch) => {
   return {
-    checkLoad: bindActionCreators(check.checkActionsLoad, dispatch),
-    checkSuccess: bindActionCreators(check.checkActionsSuccess, dispatch),
-    checkError: bindActionCreators(check.checkActionsError, dispatch),
-    createLoad: bindActionCreators(create.createActionsLoad, dispatch),
-    createSuccess: bindActionCreators(create.createActionSuccess, dispatch),
-    createError: bindActionCreators(create.createActionsError, dispatch),
+    checkActionsLoad: bindActionCreators(check.checkActionsLoad, dispatch),
+    checkActionsSuccess: bindActionCreators(check.checkActionsSuccess, dispatch),
+    checkActionsError: bindActionCreators(check.checkActionsError, dispatch),
+    createActionsLoad: bindActionCreators(create.createActionsLoad, dispatch),
+    createActionsSuccess: bindActionCreators(create.createActionsSuccess, dispatch),
+    createActionsError: bindActionCreators(create.createActionsError, dispatch),
   };
 };
 const Connected = connect(

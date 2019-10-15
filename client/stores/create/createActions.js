@@ -1,24 +1,5 @@
-import { constants } from '../../constants/appConstants';
+import { createAction } from 'redux-act';
 
-const createActionsLoad = (newLink) => {
-  return {
-    type: constants.CREATE_LINK_REQUEST,
-    payload: newLink,
-  };
-};
-
-const createActionSuccess = (newLink) => {
-  return {
-    type: constants.CREATE_LINK_SUCCESS,
-    payload: newLink,
-  };
-};
-
-const createActionsError = (newLink) => {
-  return {
-    type: constants.CREATE_LINK_ERROR,
-    payload: newLink,
-  };
-};
-
-export { createActionsLoad, createActionSuccess, createActionsError };
+export const createActionsLoad = createAction('Create actions load');
+export const createActionsSuccess = createAction('Create actions success');
+export const createActionsError = createAction('Create actions error');

@@ -18,16 +18,14 @@ LOGS = docker-compose -f $(DC_FILE) logs
 
 # We use docker-compose exec -T in order to add compatibility with Jenkins
 # https://github.com/docker/compose/issues/3352#issuecomment-221526576
-EXEC_DRY = docker-compose exec -T -f $(DC_FILE)
-EXEC = docker-compose exec -f $(DC_FILE)
+EXEC_DRY = docker-compose -f $(DC_FILE) exec -T
+EXEC = docker-compose -f $(DC_FILE) exec
 
 # Get the user/group ID of the current user, and use them to override users/groups in containers wchich compile files
 CURRENT_UID = $(shell id -u || 1000)
 CURRENT_GID = $(shell id -g || 50)
 
-# ==START==========================================
 # These commands create an environment
-
 docker-env: stop \
 			etc-files
 	$(BUILD)
@@ -79,19 +77,14 @@ npm_i_client:
 npm_i_server:
 	$(RUN) server npm i
 
-# ==END============================================
+mongodb-cli:
+	$(EXEC) mongodb mongo
 
-# ==START==========================================
 # Consoles section
 # Compatibility with CLI autocomplete
 c-node:
 c-%:
 	$(EXEC) $* bash
-
-# ==END============================================
-
-# ==START==========================================
-# Logs section
 
 # Use SHIFT + G, G, CMD + SHIFT + G, CMD + G to jump to start/end of logs
 # Compatibility with CLI autocomplete
@@ -104,11 +97,6 @@ ll-node:
 ll-%:
 	$(LOGS) -f $*
 
-# ==END============================================
-
-# ==START==========================================
-# Misc section
-
 # Create files for /etc/passwd and /etc/group, so that compiled/created files match current system user
 # `nobody` user for `npm`
 etc-files:
@@ -117,5 +105,3 @@ etc-files:
 	echo "root:x:0:0:root:/root:/bin/bash\nnobody:x:1:1:nobody:/:/bin/bash\nhost:x:$(CURRENT_UID):$(CURRENT_GID):host:/home/host:/bin/bash" > assets/passwd
 	touch assets/group
 	echo "root:x:0:\nnobody:x:1:\nhost:x:$(CURRENT_GID):" > assets/group
-
-# ==END============================================

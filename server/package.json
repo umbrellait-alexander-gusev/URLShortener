@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "UrlShortener Server",
     "scripts": {
-        "server": "babel-node app.js"
+        "server": "babel-node --inspect=0.0.0.0:9229 app.js"
     },
     "author": "Alexander",
     "dependencies": {
@@ -11,15 +11,26 @@
         "cors": "^2.8.5",
         "envalid": "^5.0.0",
         "express": "^4.17.1",
+        "lodash": "^4.17.15",
         "mongoose": "^5.7.0",
         "nanoid": "^2.1.2",
         "node-cron": "^2.0.3",
-        "winston": "^3.2.1"
+        "winston": "^3.2.1",
+        "yup": "^0.27.0"
     },
     "devDependencies": {
         "@babel/core": "^7.0.0",
         "@babel/node": "^7.6.2",
         "@babel/preset-env": "^7.0.0",
-        "@babel/preset-react": "^7.0.0"
+        "@babel/preset-react": "^7.0.0",
+        "eslint": "^6.5.1",
+        "eslint-config-prettier": "^6.4.0",
+        "eslint-import-resolver-webpack": "^0.11.1",
+        "eslint-plugin-import": "^2.18.2",
+        "eslint-plugin-no-null": "^1.0.2",
+        "eslint-plugin-prettier": "^3.1.1",
+        "eslint-plugin-react": "^7.16.0",
+        "eslint-plugin-react-hooks": "^2.1.2",
+        "prettier": "^1.18.2"
     }
 }

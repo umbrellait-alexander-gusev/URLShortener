@@ -43,6 +43,7 @@ services:
     image: server:latest
     ports:
       - "3000:3000"
+      - "9229:9229"
     working_dir: /data
     command: npm run server
     volumes:
