@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 import '../models/link';
 import { env } from '../config/config';
 
@@ -29,10 +30,6 @@ export function setUpConnection() {
     .catch((err) => console.error(err));
 }
 
-export function listLinks() {
-  return links.find();
-}
-
 export function createLink(data) {
   const link = new links({
     slug: data.slug,
@@ -41,10 +38,6 @@ export function createLink(data) {
   });
 
   return link.save();
-}
-
-export function deleteLink(id) {
-  return links.findById(id).deleteOne();
 }
 
 export function uniqueSlug(slug) {

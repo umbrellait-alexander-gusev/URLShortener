@@ -1,21 +1,5 @@
 version: "3"
 services:
-  client_old:
-    env_file:
-      - .env
-    build: node
-    image: client_old:latest
-    ports:
-      - "3001:3001"
-    working_dir: /data
-    command: exit
-    volumes:
-      - ../client_old:/data
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
   client:
     env_file:
       - .env

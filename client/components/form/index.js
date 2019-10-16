@@ -1,5 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
 import { Form } from './Form.jsx';
 import * as check from '../../stores/check/checkActions';
 import * as create from '../../stores/create/createActions';

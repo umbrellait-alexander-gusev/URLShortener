@@ -1,18 +1,23 @@
-import './config/validate-env';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import * as db from './utils/dataBaseUtils';
-import { AppError } from './utils/validErrors';
-import { logger } from './utils/logger';
 import nanoid from 'nanoid';
 import * as yup from 'yup';
+
+import * as db from './utils/dataBaseUtils';
+import { AppError } from './utils/errors';
+import { logger } from './utils/logger';
+import './config/validate-env';
 import { env } from './config/config';
+
+const serverPort = env.server_port;
+
+console.log('server: ' + maxLengthSlug);
 
 const schema = yup.object().shape({
   customSlug: yup
     .string()
-    .max(5)
+    .max(maxLengthSlug)
     .label('Slug'),
   url: yup
     .string()
@@ -23,7 +28,6 @@ const schema = yup.object().shape({
 
 // Initialization of express application
 const app = express();
-const serverPort = env.server_port;
 
 // Set up connection of database
 db.setUpConnection();
@@ -52,7 +56,7 @@ app.post('/links', (req, res) => {
       };
 
       if (link.slug === '') {
-        link.slug = nanoid(5);
+        link.slug = nanoid(maxLengthSlug);
       }
 
       return db.createLink(link);
@@ -66,8 +70,8 @@ app.post('/links', (req, res) => {
       return res.send(data);
     })
     .catch((error) => {
-      const errorValid = new AppError(error);
-      return res.status(400).send(errorValid);
+      const errors = new AppError(error);
+      return res.status(400).send(errors);
     });
 });
 

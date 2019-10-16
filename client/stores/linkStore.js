@@ -1,7 +1,8 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+
 import { checkReducer } from './check/checkReducer';
 import { createdReducer } from './create/createReducer';
-import createSagaMiddleware from 'redux-saga';
 import { sagas } from '../sagas/sagas';
 
 const initializeReduxDevTools = () => {

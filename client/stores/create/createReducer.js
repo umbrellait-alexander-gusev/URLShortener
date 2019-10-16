@@ -1,5 +1,6 @@
-import * as createActions from './createActions';
 import { createReducer } from 'redux-act';
+
+import * as createActions from './createActions';
 
 const initialState = {
   isLoading: false,

@@ -1,8 +1,12 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import { Collapse } from 'react-collapse';
+
 import '../../stores/linkStore';
 import { toastErrors } from '../../utils/toastErrors';
-import { toast } from 'react-toastify';
+import { env } from '../../config/config';
+
+const maxLengthSlug = env.api_length_slug;
 
 export class Form extends React.Component {
   constructor(props) {
@@ -31,7 +35,7 @@ export class Form extends React.Component {
 
   handleCustomChange(event) {
     const VALUE = event.target.value;
-    if (VALUE.match('^[a-zA-Z0-9_]*$') !== null && VALUE.length < 6) {
+    if (VALUE.match('^[a-zA-Z0-9_]*$') !== null && VALUE.length <= maxLengthSlug) {
       this.setState({
         customSlug: VALUE,
       });
@@ -128,7 +132,7 @@ export class Form extends React.Component {
 
             <p className="mb-0">Custom slug must contain 5 characters.</p>
 
-            <div className="input-group mb-3">
+            <div className="input-group pb-3">
               <input
                 type="text"
                 className="form-control"
@@ -155,7 +159,7 @@ export class Form extends React.Component {
           <div id="copy-form" className="form-block form-block-exit-done">
             <h3>Copy your URL</h3>
 
-            <div className="input-group mb-3">
+            <div className="input-group pb-3">
               <input id="copy-url" type="text" className="form-control" value={this.props.getSlug} readOnly />
               <div className="input-group-append">
                 <button id="button-copy-url" className="btn btn-outline-secondary" onClick={this.copyUrl}>

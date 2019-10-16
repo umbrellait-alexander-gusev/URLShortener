@@ -1,7 +1,7 @@
 import { get } from 'lodash';
 
 export const parseAPIError = (error) => {
-  let message = error.data.originalError.message;
+  let message = get(error, 'data.message');
   let validationErrors = [];
 
   if (Array.isArray(get(error, 'data.validationErrors'))) {
@@ -33,7 +33,7 @@ export const parseAPIError = (error) => {
   message = message.trim();
 
   if (!message) {
-    message = 'Неизвестная ошибка';
+    message = 'Unknown error';
   }
 
   return { message, validationErrors };

@@ -1,12 +1,12 @@
 import React from 'react';
+
 import { Header } from '../layout/Header';
 import { Footer } from '../layout/Footer';
 import { TextInfo } from '../layout/TextInfo';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/scss/main.scss';
-
 import { Form } from './form';
 
+import 'react-toastify/scss/main.scss';
 import 'bootstrap/scss/bootstrap.scss';
 import '../style/sass/main.scss';
 

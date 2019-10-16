@@ -9,8 +9,12 @@ const getErrorMessage = (error) => {
     message = message.trim();
   }
 
+  if (get(error, 'code') === 11000 && get(error, 'name') === 'MongoError') {
+    message = 'Oops! This url is already taken = (';
+  }
+
   if (!message) {
-    message = 'Неизвестная ошибка';
+    message = 'Unknown error';
   }
   return message;
 };
@@ -41,8 +45,9 @@ const getValidationErrors = (error) => {
 
 export class AppError extends Error {
   constructor(error) {
-    super(getErrorMessage(error));
+    super();
 
+    this.message = getErrorMessage(error);
     this.originalError = error;
     this.validationErrors = getValidationErrors(error);
   }

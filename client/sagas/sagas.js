@@ -1,11 +1,12 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { toast } from 'react-toastify';
+
 import * as checkActions from '../stores/check/checkActions';
 import * as createActions from '../stores/create/createActions';
 import { checkSlug, createLink } from '../api';
 import { parseAPIError } from '../utils/parseAPIError';
-import { toast } from 'react-toastify';
-
 import { env } from '../config/config';
+
 const apiPrefix = env.api_prefix;
 
 function* checkSaga(action) {
