@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
     checkIsLoading: state.check.isLoading,
     checkError: state.check.error,
     createIsLoading: state.create.isLoading,
+    createSuccess: state.create.success,
     createError: state.create.error,
     getSlug: state.create.slug,
   };

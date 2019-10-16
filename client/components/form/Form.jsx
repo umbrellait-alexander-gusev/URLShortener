@@ -1,12 +1,8 @@
 import React from 'react';
 import { Collapse } from 'react-collapse';
-import { createLink, checkSlug } from '../../api/index';
 import '../../stores/linkStore';
-import { env } from '../../config/config';
 import { toastErrors } from '../../utils/toastErrors';
 import { toast } from 'react-toastify';
-
-const apiPrefix = env.api_prefix;
 
 export class Form extends React.Component {
   constructor(props) {
@@ -14,7 +10,6 @@ export class Form extends React.Component {
 
     this.state = {
       url: '',
-      slug: '',
       customSlug: '',
       textOpen: true,
       originFormOpen: true,
@@ -41,18 +36,7 @@ export class Form extends React.Component {
         customSlug: VALUE,
       });
 
-      this.props.checkActionsLoad();
-
-      checkSlug(VALUE)
-        .then((data) => {
-          this.props.checkActionsSuccess(data.data);
-          if (data.data) {
-            toast.warn('Oops! This url is already taken = (');
-          }
-        })
-        .catch((error) => {
-          this.props.checkError(error);
-        });
+      this.props.checkActionsLoad(VALUE);
     }
   }
 
@@ -73,21 +57,7 @@ export class Form extends React.Component {
       url: this.state.url,
     };
 
-    this.props.createActionsLoad();
-
-    createLink(newLink)
-      .then((data) => {
-        this.props.createActionsSuccess(`${apiPrefix}/${data.data.slug}`);
-
-        this.setState({
-          originFormOpen: false,
-          customFormOpen: false,
-          copyFormOpen: true,
-        });
-      })
-      .catch((error) => {
-        this.props.createActionsError(error);
-      });
+    this.props.createActionsLoad(newLink);
   }
 
   handleCustomForm() {
@@ -117,6 +87,8 @@ export class Form extends React.Component {
       copyFormOpen: false,
       textOpen: true,
     });
+
+    this.props.createActionsError();
   }
 
   render() {
@@ -130,7 +102,7 @@ export class Form extends React.Component {
             <div className="spinner-border ml-auto" role="status" aria-hidden="true" />
           </div>
         </Collapse>
-        <Collapse isOpened={this.state.originFormOpen}>
+        <Collapse isOpened={this.state.originFormOpen && !this.props.createSuccess}>
           <div className="form-block">
             <h3>Randomly generate</h3>
             <div className="input-group mb-3">
@@ -150,7 +122,7 @@ export class Form extends React.Component {
             </div>
           </div>
         </Collapse>
-        <Collapse isOpened={this.state.customFormOpen}>
+        <Collapse isOpened={this.state.customFormOpen && !this.props.createSuccess}>
           <div className="form-block form-block-exit-done">
             <h3>Custom slug</h3>
 
@@ -167,7 +139,7 @@ export class Form extends React.Component {
             </div>
           </div>
         </Collapse>
-        <Collapse isOpened={!this.state.copyFormOpen}>
+        <Collapse isOpened={!this.state.copyFormOpen && !this.props.createSuccess}>
           <button
             onClick={() => {
               this.handleCustomForm();
@@ -179,7 +151,7 @@ export class Form extends React.Component {
             {!textOpen && <span>Randomly generate</span>}
           </button>
         </Collapse>
-        <Collapse isOpened={this.state.copyFormOpen}>
+        <Collapse isOpened={this.state.copyFormOpen || this.props.createSuccess}>
           <div id="copy-form" className="form-block form-block-exit-done">
             <h3>Copy your URL</h3>
 

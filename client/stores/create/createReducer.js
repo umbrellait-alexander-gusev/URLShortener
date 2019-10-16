@@ -1,9 +1,9 @@
 import * as createActions from './createActions';
 import { createReducer } from 'redux-act';
-import { parseAPIError } from '../../utils/parseAPIError';
 
 const initialState = {
   isLoading: false,
+  success: false,
   error: undefined,
   slug: '',
 };
@@ -14,10 +14,10 @@ export const createdReducer = createReducer(
       return { ...state, ...initialState, isLoading: true, slug: '' };
     },
     [createActions.createActionsSuccess]: (state, payload) => {
-      return { ...state, isLoading: false, slug: payload };
+      return { ...state, isLoading: false, success: true, slug: payload };
     },
     [createActions.createActionsError]: (state, payload) => {
-      return { ...state, isLoading: false, error: parseAPIError(payload), slug: '' };
+      return { ...state, isLoading: false, success: false, error: payload, slug: '' };
     },
   },
   initialState,

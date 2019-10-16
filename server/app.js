@@ -4,7 +4,6 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import * as db from './utils/dataBaseUtils';
 import { AppError } from './utils/validErrors';
-import './tasks/taskAutoRemoveLink';
 import { logger } from './utils/logger';
 import nanoid from 'nanoid';
 import * as yup from 'yup';

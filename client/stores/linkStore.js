@@ -1,12 +1,31 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { checkReducer } from './check/checkReducer';
 import { createdReducer } from './create/createReducer';
+import createSagaMiddleware from 'redux-saga';
+import { sagas } from '../sagas/sagas';
 
-const rootReducer = combineReducers({
-  check: checkReducer,
-  create: createdReducer,
-});
+const initializeReduxDevTools = () => {
+  if (
+    process.env.NODE_ENV === 'production' ||
+    typeof window === 'undefined' ||
+    typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'undefined'
+  ) {
+    return compose;
+  }
 
-const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+  return window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+};
 
-export { store };
+const sagaMiddleware = createSagaMiddleware();
+const composeEnhancers = initializeReduxDevTools();
+const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
+
+export const store = createStore(
+  combineReducers({
+    check: checkReducer,
+    create: createdReducer,
+  }),
+  enhancer,
+);
+
+sagaMiddleware.run(sagas);
