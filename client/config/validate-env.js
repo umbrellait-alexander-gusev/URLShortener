@@ -5,4 +5,5 @@ envalid.cleanEnv(process.env, {
   REACT_APP_API_PORT: envalid.port(),
   REACT_APP_API_LINKS_PATH: envalid.str(),
   REACT_APP_API_HOST: envalid.host(),
+  REACT_APP_API_LENGTH_SLUG: envalid.num(),
 });

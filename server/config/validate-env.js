@@ -6,4 +6,6 @@ envalid.cleanEnv(process.env, {
   DB_NAME: envalid.str(),
   DB_HOST: envalid.host(),
   DB_PORT: envalid.port(),
+  DB_REMOVE_LINK: envalid.num(),
+  DB_MAX_LENGTH_SLUG: envalid.num(),
 });

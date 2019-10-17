@@ -1,20 +1,24 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import { Collapse } from 'react-collapse';
-import { createLink, listLinks } from '../../api/index';
+
 import '../../stores/linkStore';
+import { toastErrors } from '../../utils/toastErrors';
+import { env } from '../../config/config';
+
+const maxLengthSlug = env.api_length_slug;
 
 export class Form extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      originUrl: '',
-      shortCustomUrl: '',
+      url: '',
+      customSlug: '',
       textOpen: true,
       originFormOpen: true,
       customFormOpen: false,
       copyFormOpen: false,
-      alertFormEmpty: false,
     };
 
     this.handleRandomlyChange = this.handleRandomlyChange.bind(this);
@@ -26,84 +30,50 @@ export class Form extends React.Component {
   }
 
   handleRandomlyChange(event) {
-    this.setState({ originUrl: event.target.value });
-    this.setState({ alertFormEmpty: false });
-
-    if (this.state.shortCustomUrl.length === 0) {
-      this.setState({
-        alertBlankText: false,
-      });
-    }
+    this.setState({ url: event.target.value });
   }
 
   handleCustomChange(event) {
     const VALUE = event.target.value;
-    if (VALUE.match('^[a-zA-Z0-9_]*$') !== null && VALUE.length < 6) {
+    if (VALUE.match('^[a-zA-Z0-9_]*$') !== null && VALUE.length <= maxLengthSlug) {
       this.setState({
-        shortCustomUrl: VALUE,
+        customSlug: VALUE,
       });
 
-      this.props.checkLoad();
+      this.props.checkActionsLoad(VALUE);
+    }
+  }
 
-      listLinks()
-        .then((data) => {
-          this.props.checkSuccess({ data, value: VALUE });
-        })
-        .catch((error) => {
-          this.props.checkError(error);
-        });
+  componentDidUpdate(prevProps) {
+    if (this.props.createError !== prevProps.createError && this.props.createError) {
+      toastErrors(this.props.createError);
     }
   }
 
   handleLinkAdd() {
-    if (this.state.originUrl.length > 0) {
-      const newLink = {
-        shortUrl: '',
-        shortCustomUrl: this.state.shortCustomUrl,
-        originUrl: this.state.originUrl,
-      };
-
-      this.props.createLoad();
-
-      createLink(newLink)
-        .then((data) => {
-          listLinks()
-            .then((db) => {
-              this.props.createSuccess({ data, db: db });
-            })
-            .catch((error) => {
-              this.props.createError(error);
-            });
-        })
-        .catch((error) => {
-          this.props.createError(error);
-        });
-
-      this.setState({
-        alertFormEmpty: false,
-        originFormOpen: false,
-        customFormOpen: false,
-        copyFormOpen: true,
-      });
-    } else {
-      this.setState({ alertFormEmpty: true });
+    if (this.state.url.length === 0) {
+      toast.warn('You forgot to enter url');
+      return;
     }
+
+    const newLink = {
+      customSlug: this.state.customSlug,
+      url: this.state.url,
+    };
+
+    this.props.createActionsLoad(newLink);
   }
 
   handleCustomForm() {
     this.setState({
-      shortCustomUrl: '',
-      alertFormEmpty: false,
-      alertUrlExist: false,
+      customSlug: '',
       customFormOpen: !this.state.customFormOpen,
     });
   }
 
   handleRandomlyForm() {
     this.setState({
-      shortCustomUrl: '',
-      alertFormEmpty: false,
-      alertUrlExist: false,
+      customSlug: '',
     });
   }
 
@@ -114,14 +84,15 @@ export class Form extends React.Component {
   }
 
   reloadPage() {
-    this.props.createLoad();
-
     this.setState({
-      originUrl: '',
-      shortCustomUrl: '',
+      url: '',
+      customSlug: '',
       originFormOpen: true,
       copyFormOpen: false,
+      textOpen: true,
     });
+
+    this.props.createActionsError();
   }
 
   render() {
@@ -129,7 +100,13 @@ export class Form extends React.Component {
 
     return (
       <div className="form-wrapper">
-        <Collapse isOpened={this.state.originFormOpen}>
+        <Collapse isOpened={this.props.checkIsLoading || this.props.createIsLoading}>
+          <div className="d-flex align-items-center">
+            <strong>Loading...</strong>
+            <div className="spinner-border ml-auto" role="status" aria-hidden="true" />
+          </div>
+        </Collapse>
+        <Collapse isOpened={this.state.originFormOpen && !this.props.createSuccess}>
           <div className="form-block">
             <h3>Randomly generate</h3>
             <div className="input-group mb-3">
@@ -137,7 +114,7 @@ export class Form extends React.Component {
                 type="text"
                 className="form-control"
                 placeholder="Enter the link here"
-                value={this.state.originUrl}
+                value={this.state.url}
                 onChange={this.handleRandomlyChange}
               />
 
@@ -147,47 +124,26 @@ export class Form extends React.Component {
                 </button>
               </div>
             </div>
-
-            <Collapse isOpened={this.state.alertFormEmpty}>
-              <div className="alert alert-danger alert-exit-done" role="alert">
-                You forgot to enter url
-              </div>
-            </Collapse>
           </div>
         </Collapse>
-
-        <Collapse isOpened={this.state.customFormOpen}>
+        <Collapse isOpened={this.state.customFormOpen && !this.props.createSuccess}>
           <div className="form-block form-block-exit-done">
-            <h3>Custom url</h3>
+            <h3>Custom slug</h3>
 
-            <p className="mb-0">The maximum length is 5 characters.</p>
+            <p className="mb-0">Custom slug must contain 5 characters.</p>
 
-            <Collapse isOpened={this.props.checkIsLoading}>
-              <div className="d-flex align-items-center">
-                <strong>Loading...</strong>
-                <div className="spinner-border ml-auto" role="status" aria-hidden="true" />
-              </div>
-            </Collapse>
-
-            <div className="input-group mb-3">
+            <div className="input-group pb-3">
               <input
                 type="text"
                 className="form-control"
                 placeholder="Enter the link here"
-                value={this.state.shortCustomUrl}
+                value={this.state.customSlug}
                 onChange={this.handleCustomChange}
               />
             </div>
-
-            <Collapse isOpened={this.props.checkDuplicate}>
-              <div className="alert alert-danger alert-exit-done" role="alert">
-                Oops! This url is already taken = (
-              </div>
-            </Collapse>
           </div>
         </Collapse>
-
-        <Collapse isOpened={!this.state.copyFormOpen}>
+        <Collapse isOpened={!this.state.copyFormOpen && !this.props.createSuccess}>
           <button
             onClick={() => {
               this.handleCustomForm();
@@ -199,13 +155,12 @@ export class Form extends React.Component {
             {!textOpen && <span>Randomly generate</span>}
           </button>
         </Collapse>
-
-        <Collapse isOpened={this.state.copyFormOpen}>
+        <Collapse isOpened={this.state.copyFormOpen || this.props.createSuccess}>
           <div id="copy-form" className="form-block form-block-exit-done">
             <h3>Copy your URL</h3>
 
-            <div className="input-group mb-3">
-              <input id="copy-url" type="text" className="form-control" value={this.props.getShortUrl} readOnly />
+            <div className="input-group pb-3">
+              <input id="copy-url" type="text" className="form-control" value={this.props.getSlug} readOnly />
               <div className="input-group-append">
                 <button id="button-copy-url" className="btn btn-outline-secondary" onClick={this.copyUrl}>
                   Copy URL

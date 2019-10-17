@@ -2,10 +2,6 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2019,
     sourceType: 'module',
-    jsx: true,
-    ecmaFeatures: {
-      jsx: true,
-    },
   },
   env: {
     es6: true,
@@ -18,33 +14,21 @@ module.exports = {
 
     'plugin:prettier/recommended',
 
-    'plugin:react/recommended',
-    'prettier/react',
-
-    'plugin:jsx-a11y/recommended',
-
     'plugin:import/errors',
     'plugin:import/warnings',
   ],
-  plugins: ['prettier', 'react', 'react-hooks', 'jsx-a11y'],
+  plugins: ['prettier'],
   settings: {
-    'react': {
-      version: 'detect',
-    },
-    'import/extensions': ['.js', '.jsx'],
+    'import/extensions': ['.js'],
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js'],
         moduleDirectory: ['node_modules'],
-      },
-      webpack: {
-        config: './webpack.config.js',
-      },
+      }
     },
   },
   rules: {
     'import/no-default-export': 'error',
-    'react/prop-types': 'off',
     'prettier/prettier': 'error',
     'no-console': 'warn',
     'max-len': [
@@ -58,9 +42,6 @@ module.exports = {
         ignorePattern: '(^\\s*(const|let|var)\\s.+=\\s*require\\s*\\(|^import\\s.+\\sfrom\\s.+;$)',
       },
     ],
-    'jsx-a11y/no-onchange': 'off',
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
   },
   globals: {},
 };

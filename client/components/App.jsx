@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { Header } from '../layout/Header';
 import { Footer } from '../layout/Footer';
 import { TextInfo } from '../layout/TextInfo';
-
+import { ToastContainer } from 'react-toastify';
 import { Form } from './form';
 
+import 'react-toastify/scss/main.scss';
 import 'bootstrap/scss/bootstrap.scss';
 import '../style/sass/main.scss';
 
@@ -12,6 +14,7 @@ export class App extends React.Component {
   render() {
     return (
       <div id="wrapper-content">
+        <ToastContainer autoClose={10000} />
         <Header />
 
         <main className="bg-light d-flex flex-column justify-content-center align-items-center">

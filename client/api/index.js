@@ -1,16 +1,24 @@
 import axios from 'axios';
+
 import { env } from '../config/config';
 
 const hostName = env.api_host;
 const portName = env.api_port;
-const dbName = env.api_links_path;
-
-function listLinks() {
-  return axios.get(`http://${hostName}:${portName}/${dbName}`);
-}
 
 function createLink(data) {
-  return axios.post(`http://${hostName}:${portName}/${dbName}`, data);
+  return axios.post(`http://${hostName}:${portName}/links`, data);
 }
 
-export { listLinks, createLink };
+function checkSlug(slug) {
+  return axios.get(`http://${hostName}:${portName}/checkSlug`, {
+    params: { slug },
+  });
+}
+
+function getUrl(slug) {
+  return axios.get(`http://${hostName}:${portName}/getUrl`, {
+    params: { slug },
+  });
+}
+
+export { createLink, checkSlug, getUrl };

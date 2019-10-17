@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { env } from '../config/config';
-import { listLinks } from '../api/index';
+import { checkSlug, getUrl } from '../api/index';
 
 const apiPrefix = env.api_prefix;
 
@@ -13,21 +14,16 @@ export class PageLinks extends React.Component {
   }
 
   render() {
-    listLinks().then(({ data }) => {
-      data.map((link) => {
-        let linkCode = link.shortUrl;
-        let relinkCode = linkCode.replace(apiPrefix + '/', '');
-
-        if (relinkCodeNow === relinkCode) {
-          this.locationRun(link.originUrl);
-        }
-      });
+    checkSlug(relinkCodeNow).then((boolean) => {
+      if (boolean.data) {
+        getUrl(relinkCodeNow).then((url) => {
+          this.locationRun(url.data);
+        });
+      } else {
+        this.locationRun('/page-not-found');
+      }
     });
 
-    return (
-      <div>
-        <p>linkCodeNow : {linkCodeNow}</p>
-      </div>
-    );
+    return <div />;
   }
 }

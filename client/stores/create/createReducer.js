@@ -1,28 +1,25 @@
-import { constants } from '../../constants/appConstants';
+import { createReducer } from 'redux-act';
+
+import * as createActions from './createActions';
 
 const initialState = {
   isLoading: false,
+  success: false,
   error: undefined,
-  shortUrl: '',
+  slug: '',
 };
 
-export const createReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case constants.CREATE_LINK_REQUEST:
-      return { ...state, ...initialState, isLoading: true, shortUrl: '' };
-    case constants.CREATE_LINK_SUCCESS: {
-      let shortUrl = '';
-      const shortUrlId = action.payload.data.data._id;
-      action.payload.db.data.map((item) => {
-        if (item._id === shortUrlId) {
-          shortUrl = item.shortUrl;
-        }
-      });
-
-      return { ...state, isLoading: false, shortUrl: shortUrl };
-    }
-    case constants.CREATE_LINK_ERROR:
-      return { ...state, error: action.payload, isLoading: false, shortUrl: '' };
-  }
-  return state;
-};
+export const createdReducer = createReducer(
+  {
+    [createActions.createActionsLoad]: (state) => {
+      return { ...state, ...initialState, isLoading: true, slug: '' };
+    },
+    [createActions.createActionsSuccess]: (state, payload) => {
+      return { ...state, isLoading: false, success: true, slug: payload };
+    },
+    [createActions.createActionsError]: (state, payload) => {
+      return { ...state, isLoading: false, success: false, error: payload, slug: '' };
+    },
+  },
+  initialState,
+);
